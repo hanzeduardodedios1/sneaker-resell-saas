@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: sneaker_db_container
+    restart: always
+    environment:
+      - POSTGRES_USER=hanz_admin
+      - POSTGRES_PASSWORD=your_secure_password
+      - POSTGRES_DB=sneaker_inventory
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
