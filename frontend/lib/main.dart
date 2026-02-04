@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'models/sneaker.dart';
-import 'widgets/product_card.dart';
+import 'widgets/product_card.dart'; 
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +15,16 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         scaffoldBackgroundColor: const Color(0xFFFAFAFA),
-        primarySwatch: Colors.black,
+        
+        // --- THE FIX IS HERE ---
+        // We replaced 'primarySwatch: Colors.black' with 'colorScheme'
+        // This generates all the required shades automatically.
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.black, 
+          brightness: Brightness.light
+        ),
+        useMaterial3: true,
+        // -----------------------
       ),
       home: const MarketplaceScreen(),
     );
@@ -49,10 +58,11 @@ class MarketplaceScreen extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: GridView.builder(
+          // Uses the mock data from your sneaker.dart model
           itemCount: mockInventory.length,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // 2 Columns like StockX app
-            childAspectRatio: 0.75, // Taller cards
+            crossAxisCount: 2, 
+            childAspectRatio: 0.75, 
             crossAxisSpacing: 16,
             mainAxisSpacing: 16,
           ),
